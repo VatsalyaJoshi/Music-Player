@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: rebeccapurple;
+}
+.container {
+    text-align: center;
+    background-color: yellow;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px black;
+}
+.music-player {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.music-library, .audio-controls {
+    flex: 4;
+    padding: 40px;
+    border: 10px solid mediumblue;
+    background-color: navajowhite;
+    margin: 60px;
+}
+
+.controls {
+    display: flex red;
+    justify-content: center;
+    margin-top: 10px;
+    background-color: violet;
+}
+
+.controls button {
+    margin: 5px;
+    padding: 5px 20px;
+    font-size: 16px;
+    border: none;
+    background-color: black;
+    color: pink;
+    border-radius: 6px red;
+    cursor: pointer;
+}
+
+#audio-player {
+    width: 100%;
+    margin-top: 10px;
+}
+
+    </style>
+    <title>Music Player App</title>
+</head>
+<body>
+    <div class="music-player">
+        <div class="music-library">
+            <h1>Music Library</h1>
+            <ul id="track-list"></ul>
+            <p>1.thumbiva</p>
+            <p>2.ananda</p>
+            <p>3.siyaram</p>
+        </div>
+        <div class="audio-controls">
+            <h2>Audio Controls</h2>
+            <img src="thakshak.jpg" width="550px" height="250px"/>
+            <audio id="audio-player" controls></audio>
+            <div class="controls">
+                <button id="prev-btn">Previous</button>
+                <button id="play-pause-btn">Play</button>
+                <button id="next-btn">Next</button>
+                <button id="shuffleBtn">Shuffle</button>
+                <button id="repeatBtn">Repeat</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        const trackList = document.getElementById('track-list');
+const audioPlayer = document.getElementById('audio-player');
+const playPauseButton = document.getElementById('play-pause-btn');
+const prevButton = document.getElementById('prev-btn');
+const nextButton = document.getElementById('next-btn');
+const shuffleBtn = document.getElementById("shuffleBtn");
+const repeatBtn = document.getElementById("repeatBtn");
+const albumCover = document.getElementById("albumCover");
+const trackTitle = document.getElementById("trackTitle");
+const artist = document.getElementById("artist");
+const progressBar = document.getElementById("progressBar");
+
+const tracks = [
+    { thumbiva: 'Song 1', artist: 'thakshak', src: 'thumbiva.mp3' },
+    { ananda: 'Song 2', artist: 'ram', src: 'ananda.mp3' },
+    { siyaram: 'Song 2', artist: 'hanuman', src: 'siyaram.mp3' },
+    
+];
+
+let currentTrackIndex = 0;
+
+function loadTrack(index) {
+    const track = tracks[index];
+    audioPlayer.src = track.src;
+    audioPlayer.play();
+}
+
+function updateTrackInfo(index) {
+    const track = tracks[index];
+    audioPlayer.setAttribute('title', track.title);
+    audioPlayer.setAttribute('artist', track.artist);
+}
+
+function playPause() {
+    if (audioPlayer.paused) {
+        audioPlayer.play();
+        playPauseButton.textContent = 'Pause';
+    } else {
+        audioPlayer.pause();
+        playPauseButton.textContent = 'Play';
+    }
+}
+
+function nextTrack() {
+    currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+    loadTrack(currentTrackIndex);
+    updateTrackInfo(currentTrackIndex);
+}
+
+function prevTrack() {
+    currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+    loadTrack(currentTrackIndex);
+    updateTrackInfo(currentTrackIndex);
+}
+
+playPauseButton.addEventListener('click', playPause);
+nextButton.addEventListener('click', nextTrack);
+prevButton.addEventListener('click', prevTrack);
+
+// Initial load
+loadTrack(currentTrackIndex);
+updateTrackInfo(currentTrackIndex);
+   </script>
+</body>
+</html>
+
+
